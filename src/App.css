@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family:
+    "Segoe UI",
+    "Inter",
+    -apple-system,
+    sans-serif;
+}
+
+.App {
+  display: flex;
+  width: 100%;
+  height: 100vh;
+  background: #bebfc0;
+}
+
+.topControls {
+  width: 350px;
+  flex-shrink: 0;
+  height: 100vh;
+  padding: 24px 20px;
+  box-sizing: border-box;
+  background: #ffffff82;
+  border-right: 1px solid #eaecef;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  z-index: 15;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+}
+
+.appTitle {
+  font-size: 19px;
+  font-weight: 700;
+  color: #6c6c6d;
+  margin: 0;
+}
+
+.mapWrapper {
+  flex: 1;
+  position: relative;
+  height: 100vh;
+}
