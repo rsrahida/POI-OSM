@@ -15,6 +15,7 @@
   box-sizing: border-box;
   outline: none;
   transition: all 0.18s ease;
+  caret-color: transparent;
 }
 
 .input::placeholder {
@@ -29,21 +30,18 @@
 
 .input:focus {
   background: #ffffff;
-  border-color: #dfe3e8;
-  box-shadow: 0 6px 14px rgba(138, 141, 141, 0.35);
+  border-color: #f0c9c9;
+  box-shadow: 0 6px 14px rgba(153, 27, 27, 0.14);
 }
 
 .dropdown {
-  position: absolute;
-  top: calc(100% + 8px);
-  left: 0;
-  right: 0;
+  position: static;
+  margin-top: 8px;
   background: white;
   border: 1.5px solid #eef0f3;
   border-radius: 14px;
   box-shadow: 0 6px 14px rgba(138, 141, 141, 0.25);
   list-style: none;
-  margin: 0;
   padding: 6px;
   max-height: 240px;
   overflow-y: auto;
@@ -51,16 +49,83 @@
 }
 
 .dropdownItem {
-  padding: 10px 12px;
-  font-size: 13px;
-  font-weight: 500;
-  color: #444;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  padding: 9px 12px;
   border-radius: 10px;
   cursor: pointer;
   transition: background 0.15s ease;
+
+  user-select: none;
+}
+.dropdownItem:hover {
+  background: #fdeaea;
 }
 
-.dropdownItem:hover {
-  background: #f7f8fa;
-  color: #222;
+.dropdownItem:hover .itemName {
+  color: #b91c1c;
+}
+
+.itemName {
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  transition: color 0.15s ease;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.itemAddress {
+  font-size: 11px;
+  font-weight: 400;
+  color: #9a9fa6;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dropdown::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdown::-webkit-scrollbar-thumb {
+  background: #d7dbe0;
+  border-radius: 10px;
+}
+
+.skeletonItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+}
+
+.skeletonLine {
+  height: 9px;
+  border-radius: 5px;
+  background: linear-gradient(90deg, #ececef 25%, #f6f6f8 37%, #ececef 63%);
+  background-size: 400% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+.emptyItem {
+  padding: 14px 12px;
+  text-align: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #9aa0a8;
 }

@@ -1,4 +1,14 @@
 import React, { useEffect, useState } from "react";
+import {
+  X,
+  MapPin,
+  Phone,
+  Globe,
+  Clock,
+  AlertTriangle,
+  MapPinOff,
+  Loader2,
+} from "lucide-react";
 import { fetchPlaceDetails } from "../../services/geoapifyService";
 import styles from "./PointDetails.module.css";
 
@@ -38,50 +48,110 @@ const PointDetails = ({ place, onClose }) => {
 
   return (
     <div className={styles.panel}>
-      <button className={styles.closeButton} onClick={onClose}>
-        ✕
+      <button
+        className={styles.closeButton}
+        onClick={onClose}
+        aria-label="Bağla"
+      >
+        <X size={16} strokeWidth={2.4} />
       </button>
 
-      <h3 className={styles.title}>{place.name}</h3>
+      <div className={styles.header}>
+        <div className={styles.iconBadge}>
+          <MapPin size={20} strokeWidth={2.2} color="#fff" />
+        </div>
+        <div>
+          <h3 className={styles.title}>{place.name}</h3>
+          {place.category && (
+            <span className={styles.subtitle}>{place.category}</span>
+          )}
+        </div>
+      </div>
 
-      {loading && <p className={styles.loading}>Yüklənir...</p>}
-      {error && <p className={styles.error}>{error}</p>}
+      {loading && (
+        <div className={styles.loadingWrap}>
+          <Loader2 size={16} className={styles.spinnerIcon} />
+          <p className={styles.loading}>Yüklənir...</p>
+        </div>
+      )}
+
+      {error && (
+        <p className={styles.error}>
+          <AlertTriangle size={15} strokeWidth={2.2} />
+          {error}
+        </p>
+      )}
 
       {details && (
         <div className={styles.detailsList}>
           {details.address && (
-            <div className={styles.row}>
-              <span className={styles.label}>Ünvan:</span>
-              <span>{details.address}</span>
+            <div className={styles.card}>
+              <span className={styles.cardIcon}>
+                <MapPin size={16} strokeWidth={2} />
+              </span>
+              <div className={styles.cardBody}>
+                <span className={styles.label}>Ünvan</span>
+                <span className={styles.value}>{details.address}</span>
+              </div>
             </div>
           )}
+
           {details.phone && (
-            <div className={styles.row}>
-              <span className={styles.label}>Telefon:</span>
-              <span>{details.phone}</span>
+            <div className={styles.card}>
+              <span className={styles.cardIcon}>
+                <Phone size={16} strokeWidth={2} />
+              </span>
+              <div className={styles.cardBody}>
+                <span className={styles.label}>Telefon</span>
+                <span className={styles.value}>
+                  <a href={`tel:${details.phone}`}>{details.phone}</a>
+                </span>
+              </div>
             </div>
           )}
+
           {details.website && (
-            <div className={styles.row}>
-              <span className={styles.label}>Sayt:</span>
-              <a href={details.website} target="_blank" rel="noreferrer">
-                {details.website}
-              </a>
+            <div className={styles.card}>
+              <span className={styles.cardIcon}>
+                <Globe size={16} strokeWidth={2} />
+              </span>
+              <div className={styles.cardBody}>
+                <span className={styles.label}>Sayt</span>
+                <span className={styles.value}>
+                  <a href={details.website} target="_blank" rel="noreferrer">
+                    {details.website}
+                  </a>
+                </span>
+              </div>
             </div>
           )}
+
           {details.openingHours && (
-            <div className={styles.row}>
-              <span className={styles.label}>İş saatları:</span>
-              <span>{details.openingHours}</span>
+            <div className={styles.card}>
+              <span className={styles.cardIcon}>
+                <Clock size={16} strokeWidth={2} />
+              </span>
+              <div className={styles.cardBody}>
+                <span className={styles.label}>İş saatları</span>
+                <span className={styles.value}>{details.openingHours}</span>
+              </div>
             </div>
           )}
+
           {!details.address &&
             !details.phone &&
             !details.website &&
             !details.openingHours && (
-              <p className={styles.noData}>
-                Bu mekan üçün əlavə məlumat tapılmadı.
-              </p>
+              <div className={styles.emptyState}>
+                <MapPinOff
+                  size={26}
+                  strokeWidth={1.6}
+                  className={styles.emptyIcon}
+                />
+                <p className={styles.noData}>
+                  Bu mekan üçün əlavə məlumat tapılmadı.
+                </p>
+              </div>
             )}
         </div>
       )}

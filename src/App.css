@@ -3,6 +3,7 @@
 }
 
 body {
+  margin: 0;
   font-family:
     "Segoe UI",
     "Inter",
@@ -14,34 +15,58 @@ body {
   display: flex;
   width: 100%;
   height: 100vh;
-  background: #bebfc0;
+  background: #f3f4f6;
 }
 
 .topControls {
   width: 350px;
   flex-shrink: 0;
   height: 100vh;
-  padding: 24px 20px;
+  padding: 22px 18px;
   box-sizing: border-box;
-  background: #ffffff82;
-  border-right: 1px solid #eaecef;
+  background: #ffffff;
+  border-right: 1px solid #eef0f3;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 16px;
   overflow-y: auto;
+  scrollbar-gutter: stable;
   z-index: 15;
-  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.04);
+  box-shadow: 4px 0 20px rgba(30, 41, 59, 0.06);
 }
 
 .appTitle {
-  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 17px;
   font-weight: 700;
-  color: #6c6c6d;
-  margin: 0;
+  color: #1e1e2f;
+  margin: 0 0 4px 0;
+  padding-bottom: 14px;
+  border-bottom: 1px solid #f1f2f4;
+}
+
+.appTitle::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #991b1b, #dc2626);
+  flex-shrink: 0;
 }
 
 .mapWrapper {
   flex: 1;
   position: relative;
   height: 100vh;
+}
+
+.topControls::-webkit-scrollbar {
+  width: 6px;
+}
+
+.topControls::-webkit-scrollbar-thumb {
+  background: #d7dbe0;
+  border-radius: 10px;
 }

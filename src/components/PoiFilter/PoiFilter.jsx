@@ -1,25 +1,17 @@
 import React from "react";
-import {
-  Utensils,
-  Pill,
-  Landmark,
-  Cross,
-  Trees,
-  ShoppingCart,
-} from "lucide-react";
+import { ICON_MAP } from "../../utils/mapMarkers";
 import { POI_CATEGORIES } from "../../services/geoapifyService";
 import styles from "./PoiFilter.module.css";
 
-const ICON_MAP = {
-  Utensils,
-  Pill,
-  Landmark,
-  Cross,
-  Trees,
-  ShoppingCart,
-};
-
 const PoiFilter = ({ selectedCategory, onSelectCategory }) => {
+  const handleClick = (catId) => {
+    if (selectedCategory === catId) {
+      onSelectCategory(null);
+    } else {
+      onSelectCategory(catId);
+    }
+  };
+
   return (
     <div className={styles.filterContainer}>
       {POI_CATEGORIES.map((cat) => {
@@ -30,7 +22,7 @@ const PoiFilter = ({ selectedCategory, onSelectCategory }) => {
           <button
             key={cat.id}
             className={isActive ? styles.activeButton : styles.button}
-            onClick={() => onSelectCategory(cat.id)}
+            onClick={() => handleClick(cat.id)}
           >
             <span
               className={styles.iconBadge}

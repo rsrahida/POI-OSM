@@ -9,12 +9,48 @@ const BAKU_BBOX = "49.30,40.25,50.40,40.65";
 const RESULT_LIMIT = 500;
 
 export const POI_CATEGORIES = [
-  { id: "restaurant", label: "Restoran", category: "catering.restaurant", iconName: "Utensils", color: "#e67e22" },
-  { id: "pharmacy", label: "Aptek", category: "healthcare.pharmacy", iconName: "Pill", color: "#27ae60" },
-  { id: "bank", label: "Bank", category: "service.financial.bank", iconName: "Landmark", color: "#2980b9" },
-  { id: "hospital", label: "Xəstəxana", category: "healthcare.hospital", iconName: "Cross", color: "#e74c3c" },
-  { id: "park", label: "Park", category: "leisure.park", iconName: "Trees", color: "#16a085" },
-  { id: "market", label: "Market", category: "commercial.supermarket", iconName: "ShoppingCart", color: "#8e44ad" },
+  {
+    id: "restaurant",
+    label: "Restoran",
+    category: "catering.restaurant",
+    iconName: "Utensils",
+    color: "#e67e22",
+  },
+  {
+    id: "pharmacy",
+    label: "Aptek",
+    category: "healthcare.pharmacy",
+    iconName: "Pill",
+    color: "#27ae60",
+  },
+  {
+    id: "bank",
+    label: "Bank",
+    category: "service.financial.bank",
+    iconName: "Landmark",
+    color: "#2980b9",
+  },
+  {
+    id: "hospital",
+    label: "Xəstəxana",
+    category: "healthcare.hospital",
+    iconName: "Cross",
+    color: "#e74c3c",
+  },
+  {
+    id: "park",
+    label: "Park",
+    category: "leisure.park",
+    iconName: "Trees",
+    color: "#16a085",
+  },
+  {
+    id: "market",
+    label: "Market",
+    category: "commercial.supermarket",
+    iconName: "ShoppingCart",
+    color: "#8e44ad",
+  },
 ];
 
 export async function fetchPoisByCategory(categoryId) {
@@ -36,6 +72,8 @@ export async function fetchPoisByCategory(categoryId) {
     lat: feature.geometry.coordinates[1],
     lon: feature.geometry.coordinates[0],
     name: feature.properties.name || category.label,
+    address:
+      feature.properties.formatted || feature.properties.address_line2 || "",
   }));
 }
 
@@ -59,7 +97,10 @@ export async function searchPlacesByText(query) {
     lat: feature.properties.lat,
     lon: feature.properties.lon,
     name:
-      feature.properties.formatted || feature.properties.name || "Adsız mekan",
+      feature.properties.name ||
+      feature.properties.address_line1 ||
+      "Adsız mekan",
+    address: feature.properties.formatted || "",
   }));
 }
 
