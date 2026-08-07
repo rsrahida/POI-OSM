@@ -35,7 +35,7 @@ export const POI_CATEGORIES = [
     label: "Xəstəxana",
     category: "healthcare.hospital",
     iconName: "Cross",
-    color: "#e74c3c",
+    color: "#b43527",
   },
   {
     id: "park",
@@ -66,6 +66,9 @@ export async function fetchPoisByCategory(categoryId) {
   }
 
   const data = await response.json();
+
+  console.log("RAW DATA:", data);
+  console.log("Property key-ləri:", Object.keys(data.features[0].properties));
 
   return data.features.map((feature) => ({
     id: feature.properties.place_id,
@@ -116,7 +119,15 @@ export async function fetchPlaceDetails(placeId) {
   }
 
   const data = await response.json();
-  const props = data.features?.[0]?.properties || {};
+
+  console.log("PLACE DETAILS RAW:", data);
+
+  const feature = data.features?.[0];
+  const props = feature?.properties || {};
+  const coords = feature?.geometry?.coordinates || [];
+
+  console.log("Property tam obyekt:", JSON.stringify(props, null, 2));
+  console.log("Coordinates:", coords);
 
   return {
     name: props.name || props.address_line1 || "Adsız mekan",
@@ -124,5 +135,7 @@ export async function fetchPlaceDetails(placeId) {
     phone: props.contact?.phone || props.phone || null,
     website: props.contact?.website || props.website || null,
     openingHours: props.opening_hours || null,
+    lon: coords[0] ?? null,
+    lat: coords[1] ?? null,
   };
 }

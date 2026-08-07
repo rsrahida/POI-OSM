@@ -5,6 +5,7 @@ import {
   Phone,
   Globe,
   Clock,
+  Navigation,
   AlertTriangle,
   MapPinOff,
   Loader2,
@@ -45,6 +46,8 @@ const PointDetails = ({ place, onClose }) => {
   }, [place]);
 
   if (!place) return null;
+
+  const hasCoords = details && details.lat != null && details.lon != null;
 
   return (
     <div className={styles.panel}>
@@ -96,6 +99,25 @@ const PointDetails = ({ place, onClose }) => {
             </div>
           )}
 
+          {hasCoords && (
+            <div className={styles.card}>
+              <span className={styles.cardIcon}>
+                <Navigation size={16} strokeWidth={2} />
+              </span>
+              <div className={styles.cardBody}>
+                <span className={styles.label}>Koordinatlar</span>
+                <span className={styles.value}>
+                  <a
+                    href={`https://www.google.com/maps?q=${details.lat},${details.lon}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {details.lat.toFixed(6)}, {details.lon.toFixed(6)}
+                  </a>
+                </span>
+              </div>
+            </div>
+          )}
           {details.phone && (
             <div className={styles.card}>
               <span className={styles.cardIcon}>
@@ -139,6 +161,7 @@ const PointDetails = ({ place, onClose }) => {
           )}
 
           {!details.address &&
+            !hasCoords &&
             !details.phone &&
             !details.website &&
             !details.openingHours && (
@@ -149,7 +172,7 @@ const PointDetails = ({ place, onClose }) => {
                   className={styles.emptyIcon}
                 />
                 <p className={styles.noData}>
-                  Bu mekan üçün əlavə məlumat tapılmadı.
+                  Bu məkan üçün əlavə məlumat tapılmadı.
                 </p>
               </div>
             )}
