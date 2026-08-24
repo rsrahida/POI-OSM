@@ -56,19 +56,15 @@ export const POI_CATEGORIES = [
 export async function fetchPoisByCategory(categoryId) {
   const category = POI_CATEGORIES.find((c) => c.id === categoryId);
   if (!category) return [];
-
   const url = `${GEOAPIFY_PLACES_URL}?categories=${category.category}&filter=rect:${BAKU_BBOX}&limit=${RESULT_LIMIT}&apiKey=${API_KEY}`;
-
   const response = await fetch(url);
-
   if (!response.ok) {
     throw new Error(`Datalar yüklənərkən xəta baş verdi`);
   }
-
   const data = await response.json();
 
-  console.log("RAW DATA:", data);
-  console.log("Property key-ləri:", Object.keys(data.features[0].properties));
+  console.log("Datalar:", data);
+  console.log("Keylər:", Object.keys(data.features[0].properties));
 
   return data.features.map((feature) => ({
     id: feature.properties.place_id,
@@ -82,17 +78,13 @@ export async function fetchPoisByCategory(categoryId) {
 
 export async function searchPlacesByText(query) {
   if (!query || query.trim().length < 2) return [];
-
   const url = `${GEOAPIFY_AUTOCOMPLETE_URL}?text=${encodeURIComponent(
     query,
   )}&filter=rect:${BAKU_BBOX}&limit=8&apiKey=${API_KEY}`;
-
   const response = await fetch(url);
-
   if (!response.ok) {
     throw new Error(`Geoapify axtaris xetasi: ${response.status}`);
   }
-
   const data = await response.json();
 
   return data.features.map((feature) => ({
@@ -109,25 +101,18 @@ export async function searchPlacesByText(query) {
 
 export async function fetchPlaceDetails(placeId) {
   if (!placeId) return null;
-
   const url = `${GEOAPIFY_PLACE_DETAILS_URL}?id=${placeId}&apiKey=${API_KEY}`;
-
   const response = await fetch(url);
-
   if (!response.ok) {
     throw new Error(`Geoapify detallar xetasi: ${response.status}`);
   }
-
   const data = await response.json();
 
-  console.log("PLACE DETAILS RAW:", data);
+  console.log("Place details:", data);
 
   const feature = data.features?.[0];
   const props = feature?.properties || {};
   const coords = feature?.geometry?.coordinates || [];
-
-  console.log("Property tam obyekt:", JSON.stringify(props, null, 2));
-  console.log("Coordinates:", coords);
 
   return {
     name: props.name || props.address_line1 || "Adsız mekan",

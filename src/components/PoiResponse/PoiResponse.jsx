@@ -76,7 +76,6 @@ const PoiResponse = ({ selectedCategory, onSelectPlace }) => {
           <span className={styles.headerCount}>{places.length}</span>
         )}
       </div>
-
       {loading && (
         <div className={styles.list}>
           {SKELETON_ROWS.map((row) => (

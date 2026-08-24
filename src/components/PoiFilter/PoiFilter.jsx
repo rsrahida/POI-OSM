@@ -17,7 +17,6 @@ const PoiFilter = ({ selectedCategory, onSelectCategory }) => {
       {POI_CATEGORIES.map((cat) => {
         const IconComponent = ICON_MAP[cat.iconName];
         const isActive = selectedCategory === cat.id;
-
         return (
           <button
             key={cat.id}

@@ -81,8 +81,8 @@
 }
 
 .itemActive {
-  background: linear-gradient(135deg, #991b1b, #dc2626);
-  box-shadow: 0 6px 14px rgba(153, 27, 27, 0.28);
+  background: linear-gradient(135deg, #d8d6d6, #eef0f3);
+  box-shadow: 0 6px 14px rgba(204, 185, 185, 0.28);
   transform: translateY(-1px);
 }
 
@@ -114,7 +114,7 @@
 }
 
 .itemActive .itemName {
-  color: #ffffff;
+  color: #323232;
 }
 
 .itemAddress {
@@ -127,7 +127,7 @@
 }
 
 .itemActive .itemAddress {
-  color: #ffe6e6;
+  color: #605f5f;
 }
 
 .emptyState {

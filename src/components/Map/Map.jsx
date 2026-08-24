@@ -54,7 +54,6 @@ const MapComponent = ({
   const [isHybrid, setIsHybrid] = useState(false);
   const [isClustered, setIsClustered] = useState(false);
   const [isMapLoading, setIsMapLoading] = useState(true);
-
   const [activeLabel, setActiveLabel] = useState(null);
   const activeLabelRef = useRef(null);
   useEffect(() => {
@@ -188,11 +187,8 @@ const MapComponent = ({
 
       try {
         const pois = await fetchPoisByCategory(selectedCategory);
-
         if (isCancelled) return;
-
         const layer = poiLayerRef.current;
-
         const existing = await layer.queryFeatures();
         const deleteFeatures = existing.features;
 
@@ -216,7 +212,6 @@ const MapComponent = ({
     }
 
     loadPois();
-
     return () => {
       isCancelled = true;
     };
@@ -292,13 +287,11 @@ const MapComponent = ({
   return (
     <div className={styles.mapWrapper}>
       <div className={styles.mapContainer} ref={mapDiv} />
-
       {isMapLoading && (
         <div className={styles.loadingOverlay}>
           <div className={styles.loadingSpinner} />
         </div>
       )}
-
       <div className={styles.toolbar}>
         <button
           className={styles.toolButton}
@@ -314,9 +307,7 @@ const MapComponent = ({
           </span>
           {isHybrid ? "Vektor" : "Peyk"}
         </button>
-
         <div className={styles.toolDivider} />
-
         <button
           className={isClustered ? styles.toolButtonActive : styles.toolButton}
           onClick={toggleCluster}
@@ -332,7 +323,6 @@ const MapComponent = ({
           Klaster
         </button>
       </div>
-
       {activeLabel && (
         <div
           className={styles.nameLabel}
@@ -344,7 +334,6 @@ const MapComponent = ({
           {activeLabel.name}
         </div>
       )}
-
       {errorMessage && <div className={styles.errorBanner}>{errorMessage}</div>}
     </div>
   );

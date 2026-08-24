@@ -23,11 +23,9 @@ const PointDetails = ({ place, onClose }) => {
 
     async function loadDetails() {
       if (!place) return;
-
       setLoading(true);
       setError(null);
       setDetails(null);
-
       try {
         const result = await fetchPlaceDetails(place.id);
         if (!isCancelled) setDetails(result);
@@ -39,7 +37,6 @@ const PointDetails = ({ place, onClose }) => {
     }
 
     loadDetails();
-
     return () => {
       isCancelled = true;
     };
@@ -58,7 +55,6 @@ const PointDetails = ({ place, onClose }) => {
       >
         <X size={16} strokeWidth={2.4} />
       </button>
-
       <div className={styles.header}>
         <div className={styles.iconBadge}>
           <MapPin size={20} strokeWidth={2.2} color="#fff" />
@@ -70,21 +66,18 @@ const PointDetails = ({ place, onClose }) => {
           )}
         </div>
       </div>
-
       {loading && (
         <div className={styles.loadingWrap}>
           <Loader2 size={16} className={styles.spinnerIcon} />
           <p className={styles.loading}>Yüklənir...</p>
         </div>
       )}
-
       {error && (
         <p className={styles.error}>
           <AlertTriangle size={15} strokeWidth={2.2} />
           {error}
         </p>
       )}
-
       {details && (
         <div className={styles.detailsList}>
           {details.address && (
@@ -98,7 +91,6 @@ const PointDetails = ({ place, onClose }) => {
               </div>
             </div>
           )}
-
           {hasCoords && (
             <div className={styles.card}>
               <span className={styles.cardIcon}>
@@ -131,7 +123,6 @@ const PointDetails = ({ place, onClose }) => {
               </div>
             </div>
           )}
-
           {details.website && (
             <div className={styles.card}>
               <span className={styles.cardIcon}>
@@ -147,7 +138,6 @@ const PointDetails = ({ place, onClose }) => {
               </div>
             </div>
           )}
-
           {details.openingHours && (
             <div className={styles.card}>
               <span className={styles.cardIcon}>
@@ -159,7 +149,6 @@ const PointDetails = ({ place, onClose }) => {
               </div>
             </div>
           )}
-
           {!details.address &&
             !hasCoords &&
             !details.phone &&

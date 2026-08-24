@@ -17,12 +17,10 @@ function App() {
         <div>
           <p className="appTitle">Bakı şəhəri üçün maraq nöqtələri</p>
         </div>
-
         <PoiSearch
           onSelectPlace={setSelectedPlace}
           selectedPlace={selectedPlace}
         />
-
         {selectedPlace ? (
           <PointDetails
             place={selectedPlace}
@@ -41,7 +39,6 @@ function App() {
           </>
         )}
       </div>
-
       <Map
         selectedCategory={selectedCategory}
         selectedPlace={selectedPlace}
