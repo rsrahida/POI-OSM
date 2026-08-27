@@ -34,7 +34,7 @@ function App() {
             />
             <PoiResponse
               selectedCategory={selectedCategory}
-              onSelectPlace={setZoomTarget}
+             onSelectPlace={setSelectedPlace}
             />
           </>
         )}

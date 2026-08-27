@@ -15,22 +15,18 @@ const PoiSearch = ({ onSelectPlace, selectedPlace }) => {
 
   useEffect(() => {
     if (debounceRef.current) clearTimeout(debounceRef.current);
-
     if (skipNextSearchRef.current) {
       skipNextSearchRef.current = false;
       return;
     }
-
     if (!query || query.trim().length < 2) {
       setResults([]);
       setIsOpen(false);
       setIsLoading(false);
       return;
     }
-
     setIsLoading(true);
     setIsOpen(true);
-
     debounceRef.current = setTimeout(async () => {
       try {
         const places = await searchPlacesByText(query);
